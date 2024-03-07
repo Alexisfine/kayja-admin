@@ -116,7 +116,7 @@ const MessageHome = () => {
   const [semaphore, setSemaphore] = React.useState(0.0)
   React.useEffect(() => {
     const fetchData = async () => {
-        const res = await instance.get('http://http://120.76.205.116/:9000/messages/get_all')
+        const res = await instance.get('http://120.76.205.116:9000/messages/get_all')
         if (res.data.code === 2) {
             setData(res.data.data)
         } else {

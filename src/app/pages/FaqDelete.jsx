@@ -10,7 +10,7 @@ const FaqDelete = ({info, semaphore}) => {
   const handleDelete = async () => {
     // delete images
     try {
-        const res = await instance.post("http://http://120.76.205.116/:9000/faqs/delete", {
+        const res = await instance.post("http://120.76.205.116:9000/faqs/delete", {
             id: info.getValue("id"),
         }) 
         semaphore(Math.random())

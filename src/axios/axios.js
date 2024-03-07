@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL:  "http://http://120.76.205.116/:8080",
+    baseURL:  "http://120.76.205.116/:8080",
     withCredentials: true
 })
 
@@ -22,7 +22,7 @@ instance.interceptors.response.use(function (resp) {
         try {
             const refreshToken = localStorage.getItem("refresh_token");
             // Modify this request as per your backend API's expectations (e.g., header or body)
-            const response = await axios.post("http://http://120.76.205.116/:9000/users/refresh_token", {}, {
+            const response = await axios.post("http://120.76.205.116:9000/users/refresh_token", {}, {
                 headers: {
                     // Example of sending refresh token in headers; adjust if your API expects differently
                     "Authorization": `Bearer ${refreshToken}`
@@ -67,7 +67,7 @@ instance.interceptors.request.use((req) => {
 
 
 export const uploadImage = async (biz_id, img) => {
-    const res = await instance.post("http://http://120.76.205.116/:9000/files/oss/get_token", {
+    const res = await instance.post("http://120.76.205.116:9000/files/oss/get_token", {
         "biz_id" : String(biz_id),
       })
       if (res.data.code === 2) {

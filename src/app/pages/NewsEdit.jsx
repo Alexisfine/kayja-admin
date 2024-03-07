@@ -66,7 +66,7 @@ const NewsEdit = ({info, semaphore}) => {
         const res = await uploadImage("1006", newCoverImg.originFileObj)
         coverImgUrl = prefix + res
         // delete old coverImg 
-        const res1 = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        const res1 = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
           object_keys: [coverImg.slice(prefix.length)]
         })
       }
@@ -76,7 +76,7 @@ const NewsEdit = ({info, semaphore}) => {
         for (var i = 0; i < deletedImg.length; i++) {
           object_keys.push(deletedImg[i].slice(prefix.length))
         }
-        const res = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        const res = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
           object_keys,
         })
       }
@@ -91,7 +91,7 @@ const NewsEdit = ({info, semaphore}) => {
       }
       newImgUrls = [...img, ...newImgUrls]
 
-      const result = await instance.post("http://http://120.76.205.116/:9000/news/upsert", {
+      const result = await instance.post("http://120.76.205.116:9000/news/upsert", {
           "id":info.id,
           "news_type": newsType,
           "title": title,

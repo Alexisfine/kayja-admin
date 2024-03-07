@@ -7,7 +7,7 @@ import React, { useState } from 'react'
 const ProductDelete = ({info, semaphore}) => {
   const [open, setOpen] = useState(false)
   const handleDelete = async () => {
-    const res = await instance.get("http://http://120.76.205.116/:9000/products/get_for_admin/" + info.getValue("id"))
+    const res = await instance.get("http://120.76.205.116:9000/products/get_for_admin/" + info.getValue("id"))
     const data = res.data.data
     const prefix = "https://kayja-img.oss-cn-shenzhen.aliyuncs.com/"
     // delete images
@@ -16,10 +16,10 @@ const ProductDelete = ({info, semaphore}) => {
       return a.slice(prefix.length)
     })
 
-    const resImg = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+    const resImg = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
         object_keys : cur, 
     })
-    const resDel = await instance.post("http://http://120.76.205.116/:9000/products/delete", {
+    const resDel = await instance.post("http://120.76.205.116:9000/products/delete", {
         id : info.getValue("id")
     })
     console.log("success")

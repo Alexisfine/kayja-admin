@@ -28,11 +28,11 @@ const PartnerEdit = ({info, semaphore}) => {
       if (newLogoImg) {
         const res = await uploadImage("1003", newLogoImg.originFileObj)
         logoImgUrl = prefix + res  
-        await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        await instance.post("http://120.76.205.116:9000/files/oss/delete", {
             object_keys : [logoImg.slice(prefix.length)], 
         })
       }
-      await instance.post("http://http://120.76.205.116/:9000/partners/upsert", {
+      await instance.post("http://120.76.205.116:9000/partners/upsert", {
           "id": info.id,   
           "name": name,
           "name_eng": nameEng,

@@ -33,7 +33,7 @@ const Page = () => {
       phone = emailOrPhone
     }
     try {
-      const res = await axios.post("http://http://120.76.205.116/:9000/users/login", {
+      const res = await axios.post("http://120.76.205.116:9000/users/login", {
         email, 
         phone, 
         password

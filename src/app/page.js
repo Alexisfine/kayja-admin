@@ -53,7 +53,7 @@ const Home = () => {
   }
 
   const handleLogout = async () => {
-    const res = await instance.post("http://http://120.76.205.116/:9000/users/logout")
+    const res = await instance.post("http://120.76.205.116:9000/users/logout")
     if (res.status === 200 || res.status === 204) {
       localStorage.clear("token")
       localStorage.clear("refresh_token")

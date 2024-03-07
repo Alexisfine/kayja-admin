@@ -56,11 +56,11 @@ const CasesEdit = ({info, semaphore}) => {
       if (newCoverImg) {
         const res = await uploadImage("1002", newCoverImg.originFileObj)
         coverImgUrl = prefix + res  
-        await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        await instance.post("http://120.76.205.116:9000/files/oss/delete", {
             object_keys : [coverImg.slice(prefix.length)], 
         })
       }
-      await instance.post("http://http://120.76.205.116/:9000/solutions/upsert", {
+      await instance.post("http://120.76.205.116:9000/solutions/upsert", {
           "id": info.id,   
           "name": name,
           "name_eng": nameEng,

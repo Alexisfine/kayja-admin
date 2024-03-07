@@ -24,7 +24,7 @@ export const ProductCategoryCrud = ({title, semaphore}) => {
   const handleSubmit = async () => {
     setCanSubmit(false)
     try {
-      const res = await instance.post("http://http://120.76.205.116/:9000/files/oss/get_token", {
+      const res = await instance.post("http://120.76.205.116:9000/files/oss/get_token", {
       "biz_id" : "1000",
       })
       if (res.data.code === 2) {
@@ -42,7 +42,7 @@ export const ProductCategoryCrud = ({title, semaphore}) => {
             'Content-Type': 'multipart/form-data'
           }
         })
-        const resUpsert = await instance.post("http://http://120.76.205.116/:9000/product_categories/upsert", {
+        const resUpsert = await instance.post("http://120.76.205.116:9000/product_categories/upsert", {
           "name": name,
           "description": desc,
           "name_eng": nameEng,

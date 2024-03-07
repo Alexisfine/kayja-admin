@@ -20,7 +20,7 @@ const HonorEdit = ({info, semaphore}) => {
   const handleSubmit = async () => {
     setCanSubmit(false)
     try {
-      await instance.post("http://http://120.76.205.116/:9000/company_honor/upsert", {
+      await instance.post("http://120.76.205.116:9000/company_honor/upsert", {
           "id": info.id,   
           "title": title,
           "title_eng": titleEng,

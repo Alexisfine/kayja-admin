@@ -11,11 +11,11 @@ const [open, setOpen] = useState(false)
   const parts = url.split(prefix)
 
   const handleDelete = async () => {
-    const res1 = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+    const res1 = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
         object_keys : [parts[1]]
     })
     if (res1.data.code === 2) {
-        const res2 = await instance.post("http://http://120.76.205.116/:9000/product_categories/delete", {
+        const res2 = await instance.post("http://120.76.205.116:9000/product_categories/delete", {
             id : info.getValue("id")
         })
         console.log(res2, info.getValue("id"))

@@ -53,7 +53,7 @@ const JobsUpdate = ({info, semaphore}) => {
   const handleSubmit = async () => {
     setCanSubmit(false)
     try {
-      const result = await instance.post("http://http://120.76.205.116/:9000/jobs/upsert", {
+      const result = await instance.post("http://120.76.205.116:9000/jobs/upsert", {
           "id":info.id,
           "department": department,
           "department_eng": departmentEng,

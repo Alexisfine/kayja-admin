@@ -16,10 +16,10 @@ const NewsDelete = ({info, semaphore}) => {
         return a.slice(prefix.length)
         })
 
-        const resImg = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        const resImg = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
             object_keys : cur, 
         })
-        const resDel = await instance.post("http://http://120.76.205.116/:9000/news/delete", {
+        const resDel = await instance.post("http://120.76.205.116:9000/news/delete", {
             id : info.id
         })
         console.log("success")

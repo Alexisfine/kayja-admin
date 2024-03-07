@@ -119,7 +119,7 @@ const FaqHome = () => {
   const [semaphore, setSemaphore] = React.useState(0.0)
   React.useEffect(() => {
     const fetchCases = async () => {
-        const res = await instance.get('http://http://120.76.205.116/:9000/faqs/get_all')
+        const res = await instance.get('http://120.76.205.116:9000/faqs/get_all')
         if (res.data.code === 2) {
             setData(res.data.data)
         } else {

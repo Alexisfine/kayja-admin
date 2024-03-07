@@ -63,7 +63,7 @@ const ProductEdit = ({id, semaphore}) => {
 
     useEffect(() => {
         const fetchCategories = async () => {
-            const res = await instance.get("http://http://120.76.205.116/:9000/product_categories/get_all_for_admin")
+            const res = await instance.get("http://120.76.205.116:9000/product_categories/get_all_for_admin")
             setCategories(res.data.data)
         }
         fetchCategories()
@@ -81,7 +81,7 @@ const ProductEdit = ({id, semaphore}) => {
 
     useEffect(() => {
       const fetchProduct = async () => {
-        const res = await instance.get("http://http://120.76.205.116/:9000/products/get_for_admin/" + id)
+        const res = await instance.get("http://120.76.205.116:9000/products/get_for_admin/" + id)
         const data = res.data.data
         setCategory(data.category_name)
         setName(data.name)
@@ -115,7 +115,7 @@ const ProductEdit = ({id, semaphore}) => {
         const res = await uploadImage("1001", newCoverImg.originFileObj)
         coverImgUrl = prefix + res
         // delete old coverImg 
-        const res1 = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        const res1 = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
           object_keys: [coverImg.slice(prefix.length)]
         })
       }
@@ -125,7 +125,7 @@ const ProductEdit = ({id, semaphore}) => {
         for (var i = 0; i < deletedImg.length; i++) {
           object_keys.push(deletedImg[i].slice(prefix.length))
         }
-        const res = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        const res = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
           object_keys,
         })
       }
@@ -146,7 +146,7 @@ const ProductEdit = ({id, semaphore}) => {
               break  
           }
       }
-      const result = await instance.post("http://http://120.76.205.116/:9000/products/upsert", {
+      const result = await instance.post("http://120.76.205.116:9000/products/upsert", {
           "id":id,
           "category_id": cat.id,
           "category_name": cat.name,

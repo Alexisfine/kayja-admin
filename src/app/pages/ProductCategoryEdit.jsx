@@ -30,14 +30,14 @@ const ProductCategoryEdit = ({info, semaphore}) => {
     try {
       if (newImg) {
         const res = await uploadImage("1000", newImg.originFileObj)
-        const res2 = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        const res2 = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
           object_keys : [img.slice(prefix.length)]
         })
         imgUrl = prefix + res 
       }
   
   
-      const resUpsert = await instance.post("http://http://120.76.205.116/:9000/product_categories/upsert", {
+      const resUpsert = await instance.post("http://120.76.205.116:9000/product_categories/upsert", {
         "id":info.id,
         "name": name,
         "description": desc,

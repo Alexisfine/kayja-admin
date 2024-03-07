@@ -58,7 +58,7 @@ const ProductInsert = ({semaphore}) => {
 
     useEffect(() => {
         const fetchCategories = async () => {
-            const res = await instance.get("http://http://120.76.205.116/:9000/product_categories/get_all_for_admin")
+            const res = await instance.get("http://120.76.205.116:9000/product_categories/get_all_for_admin")
             setCategories(res.data.data)
             console.log(categories)
         }
@@ -84,7 +84,7 @@ const ProductInsert = ({semaphore}) => {
               break  
           }
       }
-      const result = await instance.post("http://http://120.76.205.116/:9000/products/upsert", {
+      const result = await instance.post("http://120.76.205.116:9000/products/upsert", {
           "category_id": cat.id,
           "category_name": cat.name,
           "category_name_eng": cat.name_eng,

@@ -64,7 +64,7 @@ const NewsInsert = ({semaphore}) => {
       }
 
 
-      const result = await instance.post("http://http://120.76.205.116/:9000/news/upsert", {
+      const result = await instance.post("http://120.76.205.116:9000/news/upsert", {
           "news_type": newsType,
           "title": title,
           "title_eng": titleEng,

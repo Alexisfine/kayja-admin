@@ -122,7 +122,7 @@ const HonorHome = () => {
   const [semaphore, setSemaphore] = React.useState(0.0)
   React.useEffect(() => {
     const fetchCases = async () => {
-        const res = await instance.get('http://http://120.76.205.116/:9000/company_honor/get_all_for_admin')
+        const res = await instance.get('http://120.76.205.116:9000/company_honor/get_all_for_admin')
         if (res.data.code === 2) {
             setData(res.data.data)
         } else {

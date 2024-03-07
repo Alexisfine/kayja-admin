@@ -12,10 +12,10 @@ const CasesDelete = ({info, semaphore}) => {
     // delete images
     try {
         setOpen(false)
-        const resImg = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        const resImg = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
          object_keys : [info.getValue("cover_url").slice(prefix.length)], 
         })
-        const res = await instance.post("http://http://120.76.205.116/:9000/solutions/delete", {
+        const res = await instance.post("http://120.76.205.116:9000/solutions/delete", {
             id: info.getValue("id"),
         }) 
         semaphore(Math.random())

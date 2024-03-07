@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const fileAxios = axios.create({
-    baseURL:  "http://http://120.76.205.116/:9001",
+    baseURL:  "http://120.76.205.116/:9001",
     withCredentials: true
 })
 
@@ -22,7 +22,7 @@ fileAxios.interceptors.response.use(function (resp) {
         try {
             const refreshToken = localStorage.getItem("refresh_token");
             // Modify this request as per your backend API's expectations (e.g., header or body)
-            const response = await axios.post("http://http://120.76.205.116/:9000/users/refresh_token", {}, {
+            const response = await axios.post("http://120.76.205.116:9000/users/refresh_token", {}, {
                 headers: {
                     // Example of sending refresh token in headers; adjust if your API expects differently
                     "Authorization": `Bearer ${refreshToken}`

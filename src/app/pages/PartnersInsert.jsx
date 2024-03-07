@@ -49,7 +49,7 @@ const PartnerInsert = ({semaphore}) => {
     try {
       const res = await uploadImage("1003", coverImg.originFileObj)
 
-      const result = await instance.post("http://http://120.76.205.116/:9000/partners/upsert", {
+      const result = await instance.post("http://120.76.205.116:9000/partners/upsert", {
           "name": name,
           "name_eng": nameEng,
           "status": status ? 1 : 0,

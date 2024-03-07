@@ -11,10 +11,10 @@ const PartnerDelete = ({info, semaphore}) => {
     const prefix = "https://kayja-img.oss-cn-shenzhen.aliyuncs.com/"
     // delete images
     try {
-        const resImg = await instance.post("http://http://120.76.205.116/:9000/files/oss/delete", {
+        const resImg = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
          object_keys : [info.getValue("logo_url").slice(prefix.length)], 
         })
-        const res = await instance.post("http://http://120.76.205.116/:9000/partners/delete", {
+        const res = await instance.post("http://120.76.205.116:9000/partners/delete", {
             id: info.getValue("id"),
         }) 
         semaphore(Math.random())

@@ -20,7 +20,7 @@ const HonorInsert = ({semaphore}) => {
   const handleSubmit = async () => {
     setCanSubmit(false)
     try {
-      const result = await instance.post("http://http://120.76.205.116/:9000/company_honor/upsert", {
+      const result = await instance.post("http://120.76.205.116:9000/company_honor/upsert", {
           "title": title,
           "title_eng": titleEng,
           "year": parseInt(year),

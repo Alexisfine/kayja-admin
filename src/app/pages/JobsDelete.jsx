@@ -9,7 +9,7 @@ const JobsDelete = ({info, semaphore}) => {
   const [open, setOpen] = useState(false)
   const handleDelete = async () => {
     try {
-        const res = await instance.post("http://http://120.76.205.116/:9000/jobs/delete", {
+        const res = await instance.post("http://120.76.205.116:9000/jobs/delete", {
             id: info.getValue("id"),
         }) 
         semaphore(Math.random())

@@ -22,7 +22,7 @@ const FaqInsert = ({semaphore}) => {
     setCanSubmit(false)
     try {
 
-      const result = await instance.post("http://http://120.76.205.116/:9000/faqs/upsert", {
+      const result = await instance.post("http://120.76.205.116:9000/faqs/upsert", {
           "question": question,
           "question_eng": questionEng,
           "answer": answer,
