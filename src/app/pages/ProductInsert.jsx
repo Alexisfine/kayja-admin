@@ -204,7 +204,7 @@ const ProductInsert = ({semaphore}) => {
                 </List>
               </div>
             </div>
-            <Button className='w-3/4' variant="secondary" onClick={() => appendList(characteristics, setApplication)}>新增产品特点</Button>
+            <Button className='w-3/4' variant="secondary" onClick={() => appendList(characteristics, setCharacteristics)}>新增产品特点</Button>
 
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>产品特点（英文）</span>
