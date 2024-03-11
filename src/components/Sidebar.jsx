@@ -6,10 +6,10 @@ import KayjaLogo from "@/../images/kayja.png"
 const Sidebar = ({setPage}) => {
     return (
       <aside className="w-64" aria-label="Sidebar">
-        <div className="h-screen overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
+        <div className="h-screen overflow-y-auto px-3 bg-gray-50 rounded dark:bg-gray-800">
             <Image
-              className="mx-auto h-12 w-auto mb-3"
-              src={KayjaLogo} 
+              className="-my-5 -mx-4 h-32 w-auto self-start"
+              src={KayjaLogo}
               alt="kayjaopt"
             />
           <ul className="space-y-2">
