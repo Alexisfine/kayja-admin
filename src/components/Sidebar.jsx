@@ -1,4 +1,4 @@
-import { Aperture, Box, Handshake, HelpCircle, MessageCircle, Newspaper, Notebook, Timer, Trophy, Users } from "lucide-react";
+import { Aperture, Box, Handshake, HelpCircle, MessageCircle, Newspaper, Notebook, SettingsIcon, Timer, Trophy, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import KayjaLogo from "@/../images/kayja.png"
@@ -74,6 +74,13 @@ const Sidebar = ({setPage}) => {
                 onClick={() => setPage('message')}>
                 <MessageCircle/>
                 <span className="ml-3">网站留言管理</span>
+              </div>
+            </li>
+            <li>
+              <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                onClick={() => setPage('dynamic_content')}>
+                <SettingsIcon/>
+                <span className="ml-3">首页动态信息管理</span>
               </div>
             </li>
           </ul>

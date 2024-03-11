@@ -14,6 +14,7 @@ import FaqHome from "./pages/FaqHome";
 import HonorHome from "./pages/HonorHome";
 import TimelineHome from "./pages/TimelineHome";
 import MessageHome from "./pages/MessageHome";
+import DynamicContentHome from "./pages/DynamicContent";
 
 const Home = () => {
   const router = useRouter();
@@ -47,6 +48,8 @@ const Home = () => {
         return <HonorHome/>  
       case 'message':
         return <MessageHome/>
+      case 'dynamic_content':
+        return <DynamicContentHome/>
       default:
         return <ProductsHome/>
     }

@@ -39,20 +39,20 @@ instance.interceptors.response.use(function (resp) {
                 }
                 originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
                 return instance(originalRequest);
-            }
+            } 
         } catch (refreshError) {
             console.error("Unable to refresh token", refreshError);
-            // localStorage.clear("token")
-            // localStorage.clear("refresh_token")
-            // window.location.href = '/users/login';
+            localStorage.clear("token")
+            localStorage.clear("refresh_token")
+            window.location.href = '/users/login';
             return Promise.reject(refreshError);
         }
     }
     // Redirect to login if not a token refresh issue
     if (error.response.status === 401) {
-        // localStorage.clear("token")
-        // localStorage.clear("refresh_token")
-        // window.location.href = '/users/login'
+        localStorage.clear("token")
+        localStorage.clear("refresh_token")
+        window.location.href = '/users/login'
     }
     return Promise.reject(error);
 })
