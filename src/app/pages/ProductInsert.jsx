@@ -55,12 +55,13 @@ const ProductInsert = ({semaphore}) => {
     const [characteristicsEng, setCharacteristicsEng] = useState([])
     const [application, setApplication] = useState([])
     const [applicationEng, setApplicationEng] = useState([])
+    const [ranking, setRanking] = useState(0)
 
     useEffect(() => {
         const fetchCategories = async () => {
             const res = await instance.get("http://120.76.205.116:9000/product_categories/get_all_for_admin")
-            setCategories(res.data.data)
-            console.log(categories)
+            const data = res.data.data
+            setCategories(data)
         }
         fetchCategories()
     }, [])
@@ -102,6 +103,7 @@ const ProductInsert = ({semaphore}) => {
           "characteristicsEng": characteristicsEng,
           "applications": application,
           "applications_eng": applicationEng,
+          "ranking":parseInt(ranking),
       })
       if (result?.data?.code === 2) {
           setOpen(false)
@@ -168,6 +170,10 @@ const ProductInsert = ({semaphore}) => {
                 checked={isTop}
                 onCheckedChange={() => setIsTop(!isTop)}/>
             </div>
+          <div className='flex items-center space-x-4'>
+              <span className='whitespace-nowrap min-w-40'>排名（从上往下）</span>
+              <Input value={ranking} onChange={(e) => setRanking(e.target.value)}/>
+          </div>
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>封面图片上传</span>
                 <Upload listType='picture' onChange={(e) => setCoverImg(e.file)} maxCount={1}>

@@ -20,6 +20,7 @@ const ProductCategoryEdit = ({info, semaphore}) => {
   const [img, setImg] = useState(info.cover_img_url)
   const [newImg, setNewImg] = useState(null)
   const [canSubmit, setCanSubmit] = useState(true)
+  const [ranking, setRanking] = useState(info.ranking)
   
   useEffect(() => {}, [info])
 
@@ -44,6 +45,7 @@ const ProductCategoryEdit = ({info, semaphore}) => {
         "name_eng": nameEng,
         "description_eng" : descEng,
         "status": status? 1 : 0,
+        "ranking": parseInt(ranking),
         "cover_img_url": imgUrl
       })
       setOpen(false)
@@ -91,6 +93,10 @@ const ProductCategoryEdit = ({info, semaphore}) => {
               <Switch
                 checked={status}
                 onCheckedChange={() => setStatus(!status)} value={status}/>
+            </div>
+            <div className='flex items-center space-x-4'>
+              <span className='whitespace-nowrap min-w-40'>排名（从上往下）</span>
+              <Input onChange={(e) => setRanking(e.target.value)} value={ranking}/>
             </div>
             
             <div className='flex  items-center space-x-4'>

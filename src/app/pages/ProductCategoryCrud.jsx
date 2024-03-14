@@ -20,6 +20,7 @@ export const ProductCategoryCrud = ({title, semaphore}) => {
   const [img, setImg] = useState(null)
   const [canSubmit, setCanSubmit] = useState(true)
   const [open, setOpen] = useState(false)
+  const [ranking, setRanking] = useState(0)
 
   const handleSubmit = async () => {
     setCanSubmit(false)
@@ -47,6 +48,7 @@ export const ProductCategoryCrud = ({title, semaphore}) => {
           "description": desc,
           "name_eng": nameEng,
           "description_eng" : descEng,
+          "ranking":parseInt(ranking),
           "status": status? 1 : 0,
           "cover_img_url": "https://kayja-img.oss-cn-shenzhen.aliyuncs.com/" + data.key
         })
@@ -103,6 +105,10 @@ export const ProductCategoryCrud = ({title, semaphore}) => {
               <Switch
                 checked={status}
                 onCheckedChange={() => setStatus(!status)}/>
+            </div>
+            <div className='flex items-center space-x-4'>
+              <span className='whitespace-nowrap min-w-40'>排名（从上往下）</span>
+              <Input value={ranking} onChange={(e) => setRanking(e.target.value)}/>
             </div>
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>封面图片上传</span>

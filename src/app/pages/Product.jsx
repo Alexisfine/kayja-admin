@@ -95,6 +95,13 @@ export function Product() {
       },
     },
     {
+      accessorKey: "ranking",
+      header: () => <div className="text-right">排名（从高到低）</div>,
+      cell: ({ row }) => {
+        return <div className="text-right font-medium">{row.getValue("ranking")}</div>
+      },
+    },
+    {
       accessorKey: "to_top",
       header: "置顶",
       cell: ({row}) => {

@@ -75,6 +75,13 @@ export function ProductCategory() {
             // <div className="capitalize">{row.getValue("cover_img_url")}</div>
         )
     },
+  {
+      accessorKey: "ranking",
+      header: "排名（从上往下）",
+      cell: ({row}) => (
+          <div className="capitalize">{row.getValue("ranking")}</div>
+      )
+  },
     {
         accessorKey: "ctime",
         header: "修改时间",
