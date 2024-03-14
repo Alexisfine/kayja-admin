@@ -3,6 +3,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from '@/components/ui/button'
 import { AlertDialogDescription } from '@radix-ui/react-alert-dialog'
 import React, { useState } from 'react'
+import {message} from "antd";
 
 const ProductCategoryDelete = ({info, semaphore}) => {
 const [open, setOpen] = useState(false)
@@ -11,6 +12,18 @@ const [open, setOpen] = useState(false)
   const parts = url.split(prefix)
 
   const handleDelete = async () => {
+    const res0 = await instance.get("http://120.76.205.116:9000/products/get_all_for_admin")
+    if (res0.data.code !== 2) {
+        message.error("系统错误")
+        return
+    }
+    const data = res0.data.data
+    for (var item = 0; item < data.length; item++) {
+        if (data[item].category_id === info.getValue("id")) {
+            message.error("有产品属于该产品类别")
+            return
+        }
+    }
     const res1 = await instance.post("http://120.76.205.116:9000/files/oss/delete", {
         object_keys : [parts[1]]
     })

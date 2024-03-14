@@ -12,7 +12,8 @@ const InfoPage = ({title, categories}) => {
             <div className='w-full flex items-center justify-around'>
                 {categories.length > 1 && 
                 categories.map((category, index) => {
-                    return <span key={index} className={cn(index === cat ? "font-bold" : "font-light", "text-lg")}
+                    return <span key={index}
+                     className={cn(index === cat ? " bg-red-400" : "bg-gray-300", "font-bold text-xl p-2 rounded cursor-pointer")}
                   onClick={() =>setCat(index)}>{category.name}</span>
                 })
             }
