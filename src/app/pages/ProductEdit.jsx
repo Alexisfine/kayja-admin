@@ -103,6 +103,7 @@ const ProductEdit = ({id, semaphore}) => {
         setCharacteristicsEng(data.characteristics_eng ? data.characteristics_eng : [])
         setApplication(data.applications)
         setApplicationEng(data.applications_eng)
+        setRanking(data.ranking)
       }
       fetchProduct()
     }, [id, coverImg])
