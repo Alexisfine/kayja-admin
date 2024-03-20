@@ -8,7 +8,8 @@ import instance, { uploadImage } from '@/axios/axios'
 import "rsuite/dist/rsuite.css"
 import Image from 'next/image'
 import { Button as Btn, List, message, Select, Space, Upload, Input as Ipt} from 'antd';
-import { UploadOutlined } from '@ant-design/icons'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {UploadOutlined} from "@ant-design/icons";
 
 
 const updateItem = (array, index, newValue, setFunc) => {
@@ -108,6 +109,7 @@ const ProductEdit = ({id, semaphore}) => {
       fetchProduct()
     }, [id, coverImg])
 
+
   const handleSelect = (value) => {
     setCategory(value)
   } 
@@ -185,6 +187,13 @@ const ProductEdit = ({id, semaphore}) => {
       setCanSubmit(true)
     }
   }
+
+  const onDragEnd = (res) => {
+      const newItems = [...img];
+      const [removed] = newItems.splice(res.source.index, 1);
+      newItems.splice(res.destination.index, 0, removed);
+      setImg(newItems)
+  }
   return (
     <Dialog open={open} onOpenChange={setOpen} >
         <DialogTrigger asChild>
@@ -254,19 +263,51 @@ const ProductEdit = ({id, semaphore}) => {
 
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>产品详情页图片</span>
-              <div className='grid grid-cols-3 gap-x-3 gap-y-3'>
-                {img.map((cur, idx) => (
-                  <div className='flex relative'>
-                    <Image src={cur} width={200} height={200} alt=""/>
-                    <div className='absolute rounded-full bg-red-500 cursor-pointer
-                      -right-1 -top-1 w-6 h-6 items-center text-center justify-center text-white'
-                      onClick={() => {
-                        appendList(deletedImg, setDeletedImg, cur)
-                        removeElementAtIndex(img, idx, setImg)
-                      }}>X</div>
-                  </div>
-                ))}
-              </div>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="droppableProductImages">
+                        {(provided) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                className="flex flex-col">
+                                {img.map((cur, idx) => (
+                                    <Draggable key={cur} draggableId={`draggable-${cur}`} index={idx}>
+                                        {(provided) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                                className="relative mb-4"
+                                            >
+                                                <Image src={cur} width="200" height="200" alt="" />
+                                                <div className='absolute rounded-full bg-red-500 cursor-pointer
+                                                    -right-1 -top-1 w-6 h-6 items-center text-center justify-center text-white'
+                                                     onClick={() => {
+                                                         appendList(deletedImg, setDeletedImg, cur)
+                                                         removeElementAtIndex(img, idx, setImg)}}>X</div>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+
+              {/*<div className='grid grid-cols-1 gap-x-3 gap-y-3'>*/}
+              {/*  {img.map((cur, idx) => (*/}
+              {/*    <div className='flex relative'>*/}
+              {/*      <Image src={cur} width={200} height={200} alt=""/>*/}
+              {/*      <div className='absolute rounded-full bg-red-500 cursor-pointer*/}
+              {/*        -right-1 -top-1 w-6 h-6 items-center text-center justify-center text-white'*/}
+              {/*        onClick={() => {*/}
+              {/*          appendList(deletedImg, setDeletedImg, cur)*/}
+              {/*          removeElementAtIndex(img, idx, setImg)*/}
+              {/*        }}>X</div>*/}
+              {/*    </div>*/}
+              {/*  ))}*/}
+              {/*</div>*/}
             </div>
 
             <div className='flex items-center space-x-4'>
