@@ -68,6 +68,7 @@ const CasesEdit = ({info, semaphore}) => {
           "tag": tag,
           "tag_eng": tagEng,
           "status": status ? 1 : 0,
+          "ranking": ranking,
           "cover_url": coverImgUrl,
       })
 
