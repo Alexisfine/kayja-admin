@@ -60,6 +60,13 @@ const CasesHome = () => {
             <div className="capitalize">{row.getValue("name")}</div>
         )
     },
+      {
+          accessorKey: "ranking",
+          header: "排序",
+          cell: ({row}) => (
+              <div className="capitalize">{row.getValue("ranking")}</div>
+          )
+      },
     {
       accessorKey: "tag",
       header: "标签名称",

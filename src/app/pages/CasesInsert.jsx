@@ -45,6 +45,7 @@ const CaseInsert = ({semaphore}) => {
     const [tagEng, setTagEng] = useState("")
     const [status, setStatus] = useState(true)
     const [coverImg, setCoverImg] = useState("")
+    const [ranking, setRanking] = useState(0)
 
   const handleSubmit = async () => {
     setCanSubmit(false)
@@ -59,6 +60,7 @@ const CaseInsert = ({semaphore}) => {
           "tag_eng": tagEng,
           "status": status ? 1 : 0,
           "cover_url": prefix + res,
+          "ranking": ranking,
       })
       if (result?.data?.code === 2) {
           setOpen(false)
@@ -89,6 +91,10 @@ const CaseInsert = ({semaphore}) => {
               <span className='whitespace-nowrap min-w-40'>案例名称（英文）</span>
               <Input onChange={(e) => setNameEng(e.target.value)}/>
             </div>
+          <div className='flex items-center space-x-4'>
+              <span className='whitespace-nowrap min-w-40'>排序</span>
+              <Input value={ranking} onChange={(e) => setRanking(e.target.value)}/>
+          </div>
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>案例标签</span>
               <Input onChange={(e) => setTag(e.target.value)}/>

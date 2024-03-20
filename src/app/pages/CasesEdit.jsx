@@ -46,6 +46,7 @@ const CasesEdit = ({info, semaphore}) => {
     const [status, setStatus] = useState(info.status)
     const [coverImg, setCoverImg] = useState(info.cover_url)
     const [newCoverImg, setNewCoverImg] = useState(null)
+    const [ranking, setRanking] = useState(info.ranking)
 
   const handleSubmit = async () => {
     setCanSubmit(false)
@@ -98,6 +99,10 @@ const CasesEdit = ({info, semaphore}) => {
               <span className='whitespace-nowrap min-w-40'>产品名称（英文）</span>
               <Input value={nameEng} onChange={(e) => setNameEng(e.target.value)}/>
             </div>
+              <div className='flex items-center space-x-4'>
+                  <span className='whitespace-nowrap min-w-40'>排序</span>
+                  <Input value={ranking} onChange={(e) => setRanking(e.target.value)}/>
+              </div>
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>标签名称</span>
               <Input value={tag} onChange={(e) => setTag(e.target.value)}/>
