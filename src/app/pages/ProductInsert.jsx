@@ -8,6 +8,8 @@ import instance, { uploadImage } from '@/axios/axios'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button as Btn, List, message, Upload, Input as Ipt} from 'antd';
 import { UploadOutlined } from '@ant-design/icons'
+import {CKEditor} from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 
 const updateItem = (array, index, newValue, setFunc) => {
@@ -192,12 +194,36 @@ const ProductInsert = ({semaphore}) => {
               className="resize-none"
               onChange={(e) => setDetail(e.target.value)}/>
             </div>
-            <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>产品详情（英文）</span>
-              <Ipt.TextArea
-              className="resize-none"
-              onChange={(e) => {setDetailEng(e.target.value)}}/>
-            </div>
+            {/*<div className='flex items-center space-x-4'>*/}
+            {/*  <span className='whitespace-nowrap min-w-40'>产品详情（英文）</span>*/}
+            {/*  <Ipt.TextArea*/}
+            {/*  className="resize-none"*/}
+            {/*  onChange={(e) => {setDetailEng(e.target.value)}}/>*/}
+            {/*</div>*/}
+              <div className='flex items-center space-x-4'>
+                  <span className='whitespace-nowrap min-w-40'>产品详情</span>
+                  <CKEditor
+                      editor={ClassicEditor}
+                      data={detail}
+                      onChange={(event, editor) => {
+                          const data = editor.getData()
+                          console.log(data)
+                          setDetail(data)
+                      }}
+                  />
+              </div>
+              <div className='flex items-center space-x-4'>
+                  <span className='whitespace-nowrap min-w-40'>产品详情（英文）</span>
+                  <CKEditor
+                      editor={ClassicEditor}
+                      data={detail}
+                      onChange={(event, editor) => {
+                          const data = editor.getData()
+                          console.log(data)
+                          setDetailEng(data)
+                      }}
+                  />
+              </div>
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>产品特点</span>
               <div className='w-full flex flex-col space-y-4'>
