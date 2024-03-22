@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
@@ -10,6 +12,18 @@ import Image from 'next/image'
 import { Button as Btn, List, message, Select, Space, Upload, Input as Ipt} from 'antd';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {UploadOutlined} from "@ant-design/icons";
+import dynamic from "next/dynamic";
+import {uploadAdapter} from "@/lib/ImageUpload";
+const CKEditor = dynamic(() => import('@ckeditor/ckeditor5-react').then(mod => mod.CKEditor), {
+    ssr: false,
+})
+var Editor
+// import('@ckeditor/ckeditor5-build-classic').then((d) => {
+//     Editor = d.default; // Adding a default solved the problem
+// });
+import("ckeditor5-custom-build/build/ckeditor").then(d => {
+    Editor = d.default
+});
 
 
 const updateItem = (array, index, newValue, setFunc) => {
@@ -316,18 +330,48 @@ const ProductEdit = ({id, semaphore}) => {
                 <Btn icon={<UploadOutlined />}>上传图片</Btn>
                 </Upload>
             </div>
-            <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>产品详情</span>
-              <Ipt.TextArea
-              className="resize-none" value={detail}
-              onChange={(e) => setDetail(e.target.value)}/>
-            </div>
-            <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>产品详情（英文）</span>
-              <Ipt.TextArea
-              className="resize-none" value={detailEng}
-              onChange={(e) => setDetailEng(e.target.value)}/>
-            </div>
+            {/*<div className='flex items-center space-x-4'>*/}
+            {/*  <span className='whitespace-nowrap min-w-40'>产品详情</span>*/}
+            {/*  <Ipt.TextArea*/}
+            {/*  className="resize-none" value={detail}*/}
+            {/*  onChange={(e) => setDetail(e.target.value)}/>*/}
+            {/*</div>*/}
+            {/*<div className='flex items-center space-x-4'>*/}
+            {/*  <span className='whitespace-nowrap min-w-40'>产品详情（英文）</span>*/}
+            {/*  <Ipt.TextArea*/}
+            {/*  className="resize-none" value={detailEng}*/}
+            {/*  onChange={(e) => setDetailEng(e.target.value)}/>*/}
+            {/*</div>*/}
+              <div className='flex items-center space-x-4'>
+                  <span className='whitespace-nowrap min-w-40'>产品详情</span>
+                  {typeof window !== 'undefined'  && <CKEditor
+                      editor={Editor}
+                      config={{
+                          extraPlugins: [MyCustomUploadAdapterPlugin],
+                      }}
+                      data={detail}
+                      onChange={(event, editor) => {
+                          const data = editor.getData()
+                          console.log(data)
+                          setDetail(data)
+                      }}
+                  />}
+              </div>
+              <div className='flex items-center space-x-4'>
+                  <span className='whitespace-nowrap min-w-40'>产品详情（英文）</span>
+                  {typeof window !== 'undefined'  && <CKEditor
+                      editor={Editor}
+                      config={{
+                          extraPlugins: [MyCustomUploadAdapterPlugin]
+                      }}
+                      data={detailEng}
+                      onChange={(event, editor) => {
+                          const data = editor.getData()
+                          console.log(data)
+                          setDetailEng(data)
+                      }}
+                  />}
+              </div>
 
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>产品特点</span>
@@ -395,6 +439,12 @@ const ProductEdit = ({id, semaphore}) => {
         </DialogContent>
       </Dialog>
   )
+}
+function MyCustomUploadAdapterPlugin( editor ) {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+        // Configure the URL to the upload script in your back-end here!
+        return uploadAdapter( loader, "2000" );
+    };
 }
 
 export default ProductEdit

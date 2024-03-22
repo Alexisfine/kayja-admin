@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from '@/components/ui/button'
@@ -8,10 +9,19 @@ import instance, { uploadImage } from '@/axios/axios'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button as Btn, List, message, Upload, Input as Ipt} from 'antd';
 import { UploadOutlined } from '@ant-design/icons'
-import {CKEditor} from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-
-
+import {uploadAdapter} from "@/lib/ImageUpload";
+import dynamic from "next/dynamic";
+const CKEditor = dynamic(() => import('@ckeditor/ckeditor5-react').then(mod => mod.CKEditor), {
+    ssr: false,
+})
+// var Editor
+// import('@ckeditor/ckeditor5-build-classic').then((d) => {
+//     Editor = d.default; // Adding a default solved the problem
+// });
+var Editor
+import("ckeditor5-custom-build/build/ckeditor").then(d => {
+    Editor = d.default
+});
 const updateItem = (array, index, newValue, setFunc) => {
     // Create a new array with the same values as the current `items`
     const updatedItems = [...array];
@@ -118,6 +128,8 @@ const ProductInsert = ({semaphore}) => {
       setCanSubmit(true)
     }
   }
+
+
   return (
     <Dialog open={open} onOpenChange={setOpen} >
         <DialogTrigger asChild>
@@ -188,12 +200,12 @@ const ProductInsert = ({semaphore}) => {
                   <Btn icon={<UploadOutlined/>}>上传图片</Btn>
                 </Upload>
             </div>
-            <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>产品详情</span>
-              <Ipt.TextArea
-              className="resize-none"
-              onChange={(e) => setDetail(e.target.value)}/>
-            </div>
+            {/*<div className='flex items-center space-x-4'>*/}
+            {/*  <span className='whitespace-nowrap min-w-40'>产品详情</span>*/}
+            {/*  <Ipt.TextArea*/}
+            {/*  className="resize-none"*/}
+            {/*  onChange={(e) => setDetail(e.target.value)}/>*/}
+            {/*</div>*/}
             {/*<div className='flex items-center space-x-4'>*/}
             {/*  <span className='whitespace-nowrap min-w-40'>产品详情（英文）</span>*/}
             {/*  <Ipt.TextArea*/}
@@ -202,27 +214,56 @@ const ProductInsert = ({semaphore}) => {
             {/*</div>*/}
               <div className='flex items-center space-x-4'>
                   <span className='whitespace-nowrap min-w-40'>产品详情</span>
-                  <CKEditor
-                      editor={ClassicEditor}
+                  {typeof window !== "undefined" && <CKEditor
+                      config={{
+                          extraPlugins: [MyCustomUploadAdapterPlugin],
+                      }}
+                      editor={Editor}
                       data={detail}
                       onChange={(event, editor) => {
-                          const data = editor.getData()
-                          console.log(data)
-                          setDetail(data)
+                          const data = editor.getData();
+                          setDetail(data);
                       }}
-                  />
+                  />}
+
+                  {/*<CKEditor*/}
+                  {/*    editor={Editor}*/}
+                  {/*    data={detail}*/}
+                  {/*    config={{*/}
+                  {/*        plugins: [ Image, ImageToolbar, ImageCaption, ImageStyle, ImageResize, LinkImage ],*/}
+                  {/*        toolbar:{*/}
+                  {/*            items: [*/}
+                  {/*                'undo', 'redo', '|',*/}
+                  {/*                'heading', '|',*/}
+                  {/*                'bold', 'italic', 'subscript', 'superscript','|',*/}
+                  {/*                'uploadImage', 'mediaEmbed', '|',*/}
+                  {/*                'insertTable','|',*/}
+                  {/*                'bulletedList', 'numberedList', 'todoList', 'outdent', 'indent'*/}
+                  {/*            ],*/}
+                  {/*            shouldNotGroupWhenFull: true,*/}
+                  {/*        }*/}
+                  {/*    }}*/}
+                  {/*    onChange={(event, editor) => {*/}
+                  {/*        const data = editor.getData()*/}
+                  {/*        console.log(data)*/}
+                  {/*        setDetail(data)*/}
+                  {/*    }}*/}
+                  {/*/>*/}
               </div>
               <div className='flex items-center space-x-4'>
                   <span className='whitespace-nowrap min-w-40'>产品详情（英文）</span>
-                  <CKEditor
-                      editor={ClassicEditor}
-                      data={detail}
+                  {typeof window !== "undefined" && <CKEditor
+                      config={{
+                          extraPlugins: [MyCustomUploadAdapterPlugin]
+                      }}
+                      editor={Editor}
+                      data={detailEng}
                       onChange={(event, editor) => {
                           const data = editor.getData()
                           console.log(data)
                           setDetailEng(data)
                       }}
-                  />
+                  />}
               </div>
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>产品特点</span>
@@ -290,6 +331,13 @@ const ProductInsert = ({semaphore}) => {
         </DialogContent>
       </Dialog>
   )
+}
+
+function MyCustomUploadAdapterPlugin( editor ) {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+        // Configure the URL to the upload script in your back-end here!
+        return uploadAdapter( loader, "2000" );
+    };
 }
 
 export default ProductInsert
