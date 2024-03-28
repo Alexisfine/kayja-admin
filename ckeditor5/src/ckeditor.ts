@@ -115,6 +115,24 @@ class Editor extends ClassicEditor {
 				'tableRow',
 				'mergeTableCells'
 			]
+		},
+		mediaEmbed: {
+			previewsInData: true,
+			extraProviders: [
+				{
+					name: 'bilibili',
+					url: /^www\.bilibili\.com\/video\/([\w-]+)/,
+					html: match => {
+						const id = match[1];
+						// 返回用于嵌入Bilibili视频的iframe代码，确保使用正确的URL格式
+						return (
+							'<iframe src="https://player.bilibili.com/player.html?bvid=' + id + '" ' +
+							'width="560" height="315" frameborder="0" ' +
+							'allowfullscreen></iframe>'
+						);
+					}
+				}
+			]
 		}
 	};
 }
