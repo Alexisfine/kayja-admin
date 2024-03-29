@@ -4,5 +4,6 @@ const nextConfig = {
     images: {
         domains: ['kayja-img.oss-cn-shenzhen.aliyuncs.com'],
     },
+    basePath: '/admin'
 }
 export default nextConfig;
