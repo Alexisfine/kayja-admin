@@ -48,20 +48,20 @@ const Sidebar = ({setPage}) => {
                 <span className="ml-3">招聘管理</span>
               </div>
             </li>
-            <li>
-              <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                onClick={() => setPage('faq')}>
-                <HelpCircle/>
-                <span className="ml-3">常见问题管理</span>
-              </div>
-            </li>
-            <li>
-              <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                onClick={() => setPage('timeline')}>
-                <Timer/>
-                <span className="ml-3">公司时间线管理</span>
-              </div>
-            </li>
+            {/*<li>*/}
+            {/*  <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"*/}
+            {/*    onClick={() => setPage('faq')}>*/}
+            {/*    <HelpCircle/>*/}
+            {/*    <span className="ml-3">常见问题管理</span>*/}
+            {/*  </div>*/}
+            {/*</li>*/}
+            {/*<li>*/}
+            {/*  <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"*/}
+            {/*    onClick={() => setPage('timeline')}>*/}
+            {/*    <Timer/>*/}
+            {/*    <span className="ml-3">公司时间线管理</span>*/}
+            {/*  </div>*/}
+            {/*</li>*/}
             <li>
               <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 onClick={() => setPage('honor')}>
@@ -69,13 +69,13 @@ const Sidebar = ({setPage}) => {
                 <span className="ml-3">公司荣誉管理</span>
               </div>
             </li>
-            <li>
-              <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-                onClick={() => setPage('message')}>
-                <MessageCircle/>
-                <span className="ml-3">网站留言管理</span>
-              </div>
-            </li>
+            {/*<li>*/}
+            {/*  <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"*/}
+            {/*    onClick={() => setPage('message')}>*/}
+            {/*    <MessageCircle/>*/}
+            {/*    <span className="ml-3">网站留言管理</span>*/}
+            {/*  </div>*/}
+            {/*</li>*/}
             <li>
               <div className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 onClick={() => setPage('dynamic_content')}>

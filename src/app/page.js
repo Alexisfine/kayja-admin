@@ -40,14 +40,14 @@ const Home = () => {
         return <NewsHome/>
       case 'jobs':
         return <JobsHome/>
-      case 'faq':
-        return <FaqHome/>
-      case 'timeline':
-        return <TimelineHome/>
+      // case 'faq':
+      //   return <FaqHome/>
+      // case 'timeline':
+      //   return <TimelineHome/>
       case 'honor':
         return <HonorHome/>  
-      case 'message':
-        return <MessageHome/>
+      // case 'message':
+      //   return <MessageHome/>
       case 'dynamic_content':
         return <DynamicContentHome/>
       default:
