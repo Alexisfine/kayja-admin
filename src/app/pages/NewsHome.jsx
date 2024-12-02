@@ -53,27 +53,6 @@ const NewsHome = () => {
         )
     },
     {
-        accessorKey: "news_type",
-        header: "新闻类型",
-        cell: ({row}) => {
-          const categories = ["行业新闻","公司新闻","展会信息"]
-          const num = row.getValue("news_type")
-          var val 
-          switch (num) {
-            case 0:
-              val = "行业新闻"
-              break
-            case 1:
-              val = "公司新闻"
-              break
-            default:
-              val = "展会信息"
-              break 
-          }
-          return <div className="capitalize">{val}</div>
-      }
-    },
-    {
       accessorKey: "status",
       header: () => <div className="text-right">状态</div>,
       cell: ({ row }) => {
@@ -91,10 +70,10 @@ const NewsHome = () => {
       )
     },
     {
-      accessorKey: "tag",
-      header: "标签",
+      accessorKey: "link",
+      header:"链接",
       cell: ({row}) => (
-          <div className="capitalize">{row.getValue("tag")}</div>
+        <div>{row.getValue("link")}</div>
       )
     },
     {

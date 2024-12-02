@@ -11,7 +11,7 @@ const NewsDelete = ({info, semaphore}) => {
     try {
         const prefix = "https://kayja-img.oss-cn-shenzhen.aliyuncs.com/"
         // delete images
-        var cur = [info.cover_img_url, ...(info.images_url)]
+        var cur = [info.cover_img_url]
         cur = cur.map(a => {
         return a.slice(prefix.length)
         })

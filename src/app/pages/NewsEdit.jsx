@@ -7,9 +7,8 @@ import { ReloadIcon } from "@radix-ui/react-icons"
 import instance, { uploadImage } from '@/axios/axios'
 import "rsuite/dist/rsuite.css"
 import Image from 'next/image'
-import { Button as Btn, List, message, Space, Upload, Input as Ipt} from 'antd';
+import { Button as Btn, message, Space, Upload, Input as Ipt} from 'antd';
 import { UploadOutlined } from '@ant-design/icons'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 
 const updateItem = (array, index, newValue, setFunc) => {
@@ -42,22 +41,21 @@ const categories = ["行业新闻","公司新闻","展会信息"]
 const NewsEdit = ({info, semaphore}) => {
     const [open, setOpen] = useState(false)
     const [canSubmit, setCanSubmit] = useState(true)
-    const [newsType, setNewsType] = useState(info.news_type)
     const [status, setStatus] = useState(info.status)
     const [title, setTitle] = useState(info.title)
     const [titleEng, setTitleEng] = useState(info.title_eng)
-    const [tag, setTag] = useState(info.tag)
-    const [tagEng, setTagEng] = useState(info.tag_eng)
     const [coverImg, setCoverImg] = useState(info.cover_img_url)
-    const [img, setImg] = useState(info.images_url)
-    const [content, setContent] = useState(info.content)
-    const [contentEng, setContentEng] = useState(info.content_eng)
     const [newCoverImg, setNewCoverImg] = useState(null)
+    const [link, setLink] = useState(info.link)
     const [deletedImg, setDeletedImg] = useState([])
-    const [newImg, setNewImg] = useState([])
 
   const handleSubmit = async () => {
     setCanSubmit(false)
+    if (link == "") {
+      message.warning("请添加链接")
+      setCanSubmit(true)
+      return 
+    }
     try {
       const prefix = "https://kayja-img.oss-cn-shenzhen.aliyuncs.com/"
       var coverImgUrl = coverImg
@@ -81,28 +79,13 @@ const NewsEdit = ({info, semaphore}) => {
         })
       }
 
-      // add new images 
-      var newImgUrls = []
-      if (newImg.length > 0) {
-        for (var i = 0; i < newImg.length; i++) {
-          const res = await uploadImage("1006", newImg[i].originFileObj)
-          newImgUrls.push(prefix + res)
-        }
-      }
-      newImgUrls = [...img, ...newImgUrls]
-
       const result = await instance.post("http://120.76.205.116:9000/news/upsert", {
           "id":info.id,
-          "news_type": newsType,
           "title": title,
           "title_eng": titleEng,
-          "tag": tag,
-          "tag_eng": tagEng,
           "status": status ? 1 : 0,
           "cover_img_url": coverImgUrl,
-          "images_url": newImgUrls,
-          "content": content,
-          "content_eng": contentEng,
+          "link": link,
       })
       if (result.data.code === 2) {
         message.success("更新成功")
@@ -125,19 +108,6 @@ const NewsEdit = ({info, semaphore}) => {
           <DialogHeader>
           <DialogTitle className='text-3xl text-black'>修改</DialogTitle>
           <DialogDescription className='text-center mt-5 space-y-3 text-lg text-black'>
-          <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>产品类别</span>
-                <Select onValueChange={(e) => setNewsType(e)} defaultValue={newsType}>
-                    <SelectTrigger>
-                        <SelectValue placeholder="选择新闻类别" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {categories.map((cat, idx) => (
-                            <SelectItem key={idx} value={idx}>{cat}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </div>
 
             <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>是否上线</span>
@@ -155,19 +125,9 @@ const NewsEdit = ({info, semaphore}) => {
               <Input value={titleEng} onChange={(e) => setTitleEng(e.target.value)}/>
             </div>
             <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>标签</span>
-              <Input value={tag} onChange={(e) => setTag(e.target.value)}/>
-            </div>
-            <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>标签（英文）</span>
-              <Input value={tagEng} onChange={(e) => setTagEng(e.target.value)}/>
-            </div>
-
-            <div className='flex items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>封面图片</span>
               <Image src={coverImg} height={250} width={250} alt=""/>
             </div>
-
             <div className='flex  items-center space-x-4'>
               <span className='whitespace-nowrap min-w-40'>新封面图片上传</span>
               <div className='flex flex-col'>
@@ -177,42 +137,9 @@ const NewsEdit = ({info, semaphore}) => {
                 <span className='text-sm text-red-600'>上传后，旧封面图片将被覆盖</span>
               </div>
             </div>
-
             <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>新闻页图片</span>
-              <div className='grid grid-cols-3 gap-x-3 gap-y-3'>
-                {img.map((cur, idx) => (
-                  <div className='flex relative'>
-                    <Image src={cur} width={200} height={200} alt=""/>
-                    <div className='absolute rounded-full bg-red-500 cursor-pointer
-                      -right-1 -top-1 w-6 h-6 items-center text-center justify-center text-white'
-                      onClick={() => {
-                        appendList(deletedImg, setDeletedImg, cur)
-                        removeElementAtIndex(img, idx, setImg)
-                      }}>X</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>新闻页新图片上传</span>
-                <Upload listType='picture' onChange={(e) => setNewImg(e.fileList)}>
-                <Btn icon={<UploadOutlined />}>上传图片</Btn>
-                </Upload>
-            </div>
-
-            <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>内容</span>
-              <Ipt.TextArea
-              className="resize-none" value={content}
-              onChange={(e) => setContent(e.target.value)}/>
-            </div>
-            <div className='flex items-center space-x-4'>
-              <span className='whitespace-nowrap min-w-40'>内容（英文）</span>
-              <Ipt.TextArea
-              className="resize-none" value={contentEng}
-              onChange={(e) => setContentEng(e.target.value)}/>
+              <span className='whitespace-nowrap min-w-40'>链接</span>
+              <Input value={link} onChange={(e) => setLink(e.target.value)}/>
             </div>
 
             <Button className='w-full' onClick={() => handleSubmit()} disabled={!canSubmit}>

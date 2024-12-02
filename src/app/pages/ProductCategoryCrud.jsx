@@ -24,6 +24,11 @@ export const ProductCategoryCrud = ({title, semaphore}) => {
 
   const handleSubmit = async () => {
     setCanSubmit(false)
+    if (!img?.originFileObj) {
+      message.warning("请添加图片")
+      setCanSubmit(true)
+      return 
+    }
     try {
       const res = await instance.post("http://120.76.205.116:9000/files/oss/get_token", {
       "biz_id" : "1000",
@@ -67,6 +72,7 @@ export const ProductCategoryCrud = ({title, semaphore}) => {
       }
     } catch (err) {
       message.error("新增产品类别失败")
+      console.log(err)
     } finally {
       setCanSubmit(true)
     }
